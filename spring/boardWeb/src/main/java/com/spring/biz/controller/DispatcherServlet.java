@@ -20,6 +20,9 @@ import com.spring.biz.user.UserDto;
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private HandlerMapping handlerMapping;
+	private ViewResolver viewResolver;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,6 +34,14 @@ public class DispatcherServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
+    public void init() throws ServletException {
+    	// TODO Auto-generated method stub
+    	handlerMapping = new HandlerMapping();
+    	viewResolver = new ViewResolver();
+    	viewResolver.setPrefix("./");
+    	viewResolver.setSuffix(".jsp");
+    }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		process(request, response);
@@ -48,116 +59,20 @@ public class DispatcherServlet extends HttpServlet {
 	}
 
 	private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// TODO Auto-generated method stub
 		String uri = request.getRequestURI();
 		String path = uri.substring(uri.lastIndexOf("/"));
-		System.out.println(path);
 		
-		if(path.equals("/login.do")) {
-			System.out.println("로그인처리");
-			// 1. �ъ�⑹�� ���� ��蹂� 異�異�
-			String id = request.getParameter("id");
-			String password = request.getParameter("password");
-			
-			// 2. DB �곕�� 泥�由�
-			UserDto dto = new UserDto();
-			dto.setId(id);
-			dto.setPassword(password);
-
-			UserDao dao = new UserDao();
-			UserDto user = dao.getUser(dto);
-			
-			// 3. ��硫� �대��
-			if (user != null) {
-				response.sendRedirect("getBoardList.jsp");
-			} else {
-				response.sendRedirect("login.jsp");
-			}
-		} else if(path.equals("/logout.do")) {
-			System.out.println("로그아웃처리");
-			
-			// 1. �몄�� 醫�猷�
-			HttpSession session = request.getSession();
-
-			session.invalidate();
-		    
-			// 2. 硫��� ��硫댁�쇰� �대��
-			response.sendRedirect("login.jsp");
-		}else if(path.equals("/insertBoard.do")) {
-			System.out.println("등록처리");
-			
-
-			String title = request.getParameter("title");
-			String writer = request.getParameter("writer");
-			String content = request.getParameter("content");
-			
-			// 2. DB �곕�� 泥�由�
-			BoardDto dto = new BoardDto();
-			dto.setTitle(title);
-			dto.setWriter(writer);
-			dto.setContent(content);
-
-			BoardDao dao = new BoardDao();
-			dao.insertBoard(dto);
-			
-			// 3. ��硫� �대��
-			response.sendRedirect("getBoardList.do");
-		}else if(path.equals("/updateBoard.do")) {
-			System.out.println("수정처리");
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			String seq = request.getParameter("seq");
-
-			// 2. DB �곕�� 泥�由�
-			BoardDto dto = new BoardDto();
-			dto.setTitle(title);
-			dto.setContent(content);
-			dto.setSeq(Integer.parseInt(seq));
-
-			BoardDao boardDao = new BoardDao();
-			boardDao.updateBoard(dto);
-
-			// 3. ��硫� �대��
-			response.sendRedirect("getBoardList.do");
+		Controller ctrl = handlerMapping.getController(path);
+		
+		String viewName = ctrl.handleRequest(request, request);
+		String view = null;
+		
+		if(!viewName.contains(".do")) {
+			view=viewResolver.getView(viewName);
+		}else {
+			view=viewName;
 		}
-		else if(path.equals("/deleteBoard.do")) {
-			System.out.println("삭제처리");
-			// 1. �ъ�⑹�� ���� ��蹂� 異�異�
-			String seq = request.getParameter("seq");
-
-			// 2. DB �곕�� 泥�由�
-			BoardDto dto = new BoardDto();
-			dto.setSeq(Integer.parseInt(seq));
-
-			BoardDao dao = new BoardDao();
-			dao.deleteBoard(dto);
-
-			// 3. ��硫� �대��
-			response.sendRedirect("getBoardList.do");
-		}
-		else if(path.equals("/getBoard.do")) {
-			System.out.println("상세조회처리");
-			String seq = request.getParameter("seq");
-
-			// 2. DB 연동 처리
-			BoardDto dto = new BoardDto();
-			dto.setSeq(Integer.parseInt(seq));
-			BoardDao dao = new BoardDao();
-			BoardDto board = dao.getBoard(dto);
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("board", board);
-			response.sendRedirect("getBoard.jsp");
-		}else if(path.equals("/getBoardList.do")) {
-			System.out.println("목록검색처리");
-			BoardDto dto = new BoardDto();
-			BoardDao dao = new BoardDao();
-			List<BoardDto> boardList = dao.getBoardList(dto);
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("boardList", boardList);
-			response.sendRedirect("getBoardList.jsp");
-		}
+		response.sendRedirect(view);
 	}
 
 }

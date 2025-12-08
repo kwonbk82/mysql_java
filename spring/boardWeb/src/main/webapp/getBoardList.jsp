@@ -46,23 +46,19 @@
          <th bgcolor="orange" width="150">등록일</th>
          <th bgcolor="orange" width="100">조회수</th>
       </tr>
-      <%
-      for (BoardDto board : boardList) {
-      %>
+      <c:foreach items="${boardList } var="board">
       <tr>
-         <td><%=board.getSeq()%></td>
+         <td>${board.seq}</td>
          <td align="left">
-            <a href="getBoard.do?seq=<%=board.getSeq()%>">
-               <%=board.getTitle()%>
+            <a href="getBoard.do?seq=${board.seq}">
+               ${board.title}
             </a>
          </td>
-         <td><%=board.getWriter()%></td>
-         <td><%=board.getRegDate()%></td>
-         <td><%=board.getCnt()%></td>
+         <td>${board.writer}</td>
+         <td>${board.regDate}</td>
+         <td>${board.cnt}</td>
       </tr>
-      <%
-      }
-      %>
+     </c:foreach>
    </table>
    <br> 
    <a href="insertBoard.jsp">새글 등록</a>

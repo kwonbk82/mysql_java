@@ -2,6 +2,7 @@
 <%@page import="com.spring.biz.board.BoardDao"%>
 <%@page import="com.spring.biz.board.BoardDto"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	// 1. 검색할 게시글 번호 추출
 	BoardDto board = (BoardDto) session.getAttribute("board");
@@ -23,24 +24,24 @@
 				<tr>
 					<td bgcolor="orange" width="70">제목</td>
 					<td align="left"><input name="title" type="text"
-						value="<%=board.getTitle()%>" /></td>
+						value="${board.title}" /></td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">작성자</td>
-					<td align="left"><%=board.getWriter()%></td>
+					<td align="left">${board.writer}</td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">내용</td>
 					<td align="left"><textarea name="content" cols="40" rows="10">
-						<%=board.getContent()%></textarea></td>
+						${board.content}</textarea></td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">등록일</td>
-					<td align="left"><%=board.getRegDate()%></td>
+					<td align="left">${board.regDate}</td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">조회수</td>
-					<td align="left"><%=board.getCnt()%></td>
+					<td align="left">${board.cnt}</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -51,7 +52,7 @@
 		</form>
 		<hr>
 		<a href="insertBoard.jsp">글등록</a>&nbsp;&nbsp;&nbsp; 
-		<a href="deleteBoard.do">글삭제</a>&nbsp;&nbsp;&nbsp;
+		<a href="deleteBoard.do?seq=${board.seq}">글삭제</a>&nbsp;&nbsp;&nbsp;
 		<a href="getBoardList.do">글목록</a>
 	</center>
 
