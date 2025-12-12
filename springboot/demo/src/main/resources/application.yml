@@ -4,6 +4,14 @@ spring:
     url: jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: 1234
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    thymeleaf:
+      cache: false
+      prefix: classpath:/templates
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 th:text="${msg}">내용이 표시되는 부분</h1>
+    <h2>[[${msg}]]</h2>
+    <h2 th:text="|지금은 ${msg} 공부중">표시하는 부분</h2>
+
+    <div>
+        <h2 ></h2>
+    </div>
+    <ul>
+        <li th:text="1>10"></li>
+        <li th:text="1<10"></li>
+        <li th:text="가나==기니"></li>
+    </ul>
+    <div th:if="${msg}=='타임리프'">
+        <p>타임리프입니다</p>
+    </div>
+    <div th:unless="${msg}=='타임리프'">
+        <p>타임리프아임다</p>
+    </div>
+    <div th:switch="${msg}">
+        <p th:case="타임리프" th:text="|${msg}입니다.|"></p>
+        <p th:case="스트링부트" th:text="|${msg}입니다.|"></p>
+        <p th:case="*" >끝@</p>
+    </div>
+<!--    <div th:object="${obj}">-->
+<!--        <p th:text="*{id}">ID</p>-->
+<!--        <p th:text="*{name}">이름</p>-->
+<!--        <p th:text="*{['id']}"></p>-->
+<!--        <p th:text="*{['name']}"></p>-->
+<!--    </div>-->
+
+    <p th:text="${obj.id}">ID</p>
+    <p th:text="${obj.name}">NAME</p>
+    <p th:text="${obj['id']}">id</p>
+
+    <p th:text="${List[0]}"></p>
+    <p th:text="${List[1]}"></p>
+    <p th:text="${List[2]}"></p>
+
+    <p th:text="${map['1']['name']}"></p>
+    <p th:text="${map['2']['name']}"></p>
+
+    <div th:each="m:${List}">
+        <p>[[${m.id}]] : [[${m.name}]]</p>
+    </div>
+
+        <hr>
+        <div th:each="member,s : ${List}" th:object="${member}">
+            <p>
+                index ->[[${s.index}]], count->[[${s.count}]]
+                size ->[[${s.size}]], current->[[${s.current}]]
+                first ->[[${s.first}]], last->[[${s.last}]]
+                [[*{id}]]-[[${m.name}]]
+            </p>
+        </div>
+    <h2>fragment</h2>
+    <div id="one" th:insert="fragment :: one"><span>하나</span></div>
+</body>
+</html>
