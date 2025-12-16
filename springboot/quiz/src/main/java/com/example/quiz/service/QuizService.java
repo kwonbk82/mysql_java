@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class QuizService {
@@ -28,5 +29,8 @@ public class QuizService {
     }
     public int removeQuiz(int id){
         return quizMapper.removeQuiz(id);
+    }
+    public boolean playQuiz(Map map){
+        return quizMapper.playQuiz(map);
     }
 }

@@ -31,4 +31,10 @@
         WHERE id=#{id}
     </delete>
 
+    <select id="playQuiz" parameterType="Map" resultType="boolean">
+        SELECT count(*)
+        FROM quiz
+        WHERE id=#{id} AND answer=#{answer}
+    </select>
+
 </mapper>

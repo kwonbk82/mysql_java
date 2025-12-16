@@ -4,6 +4,7 @@ import com.example.quiz.dto.QuizDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface QuizMapper {
@@ -12,4 +13,7 @@ public interface QuizMapper {
     QuizDto findQuiz(int id);
     int changeQuiz(QuizDto dto);
     int removeQuiz(int id);
+
+//    <select id="playQuiz" parameterType="Map" resultType="boolean">
+    Boolean playQuiz(Map map);
 }

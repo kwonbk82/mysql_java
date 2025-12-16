@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,5 +58,21 @@ public class QuizServiceTest {
         QuizDto result2 = quizService.findQuiz(rId);
         assertThat(result1).isEqualTo(1);
         assertThat(result2).isNull();
+    }
+    @Test
+    void playQuizTest(){
+        QuizDto quiz = new QuizDto("1+1=2",true,"테스터6");
+        Map map = new HashMap();
+        map.put("id",quiz.getId());
+        map.put("answer",true);
+
+        boolean result =  quizService.playQuiz(map);
+        assertThat(result).isTrue();
+
+        map.put("answer",false);
+        boolean result2 =  quizService.playQuiz(map);
+        assertThat(result2).isFalse();
+
+
     }
 }
