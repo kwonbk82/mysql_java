@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macademy.shop.item.mapper.ItemMapper">
+<!--    <resultMap id="itemDtoMap" type="itemDto">-->
+<!--        <id property="itemId" column="item_id"/>-->
+<!--        <result property="itemName" column="item_name"/>-->
+<!--        <result property="stockNumber" column="stock_number"/>-->
+<!--        <result property="itemDetail" column="item_detail"/>-->
+<!--        <result property="itemSellStatus" column="item_sell_status"/>-->
+<!--        <result property="regTime" column="reg_time"/>-->
+<!--        <result property="updateTime" column="update_time"/>-->
+<!--    </resultMap>-->
+    <insert id="itemInsert" parameterType="itemDto" useGeneratedKeys="true" keyProperty="itemId" keyColumn="item_id">
+        INSERT INTO item(item_name,price,stock_number,item_detail,item_sell_status)
+        VALUES (#{itemName},#{price},#{stockNumber},#{itemDetail},#{itemSellStatus})
+    </insert>
+
+    <select id="itemListAll" resultMap="itemDtoMap">
+        SELECT *
+        FROM item
+    </select>
+</mapper>

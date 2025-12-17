@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="itemDto" type="com.macademy.shop.item.dto.ItemDto"/>
+        <typeAlias alias="memberDto" type="com.macademy.shop.member.dto.MemberDto"/>
+    </typeAliases>
+</configuration>

@@ -1,9 +1,16 @@
 spring:
   application:
     name: shop
+  devtools:
+    livereload:
+      enabled: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/shopdb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: 1234
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:mybatis-config.xml
