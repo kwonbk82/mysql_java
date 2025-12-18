@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(funtion(){
+            let errorMessage = /*[[${errorMessage]]*/"";
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+        })
+    </script>
+</th:block>
 <div layout:fragment="content">
     content area
 </div>

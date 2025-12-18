@@ -20,4 +20,9 @@
         FROM member
         WHERE email=#{email}
     </select>
+    <select id="loginMember">
+        SELECT member_id,id,password,name,email,address,role
+        FROM member
+        WHERE id=#{id} AND password=#{password}
+    </select>
 </mapper>
