@@ -21,4 +21,58 @@
         SELECT *
         FROM item
     </select>
+    <select id="selectItem" resultMap="">
+        SELECT item_id
+                ,item_name
+                ,price
+                ,stock_number
+                ,item_detail
+                ,item_sell_status
+        FROM item
+        WHERE item_id=#{itemId}
+    </select>
+    <select id="selectItemImg" resultMap="itemImgDto">
+        SELECT item_img_id
+        ,item_name
+        ,ori_img_name
+        ,img_url
+        ,rep_img_yn
+        ,item_id
+        ,reg_time
+        ,update_time
+        FROM item_img
+        WHERE item_id=#{itemId}
+        ORDER BY item_img_id
+    </select>
+    <select id="selectItemImgId" resultMap="itemImgDto">
+        SELECT item_img_id
+        ,item_name
+        ,ori_img_name
+        ,img_url
+        ,rep_img_yn
+        ,item_id
+        ,reg_time
+        ,update_time
+        FROM item_img
+        WHERE item_img_id=#{itemImgId}
+        ORDER BY item_img_id
+    </select>
+    <update id="updateItem" parameterType="itemDto">
+        UPDATE item
+        SET item_name=#{itemName},price=#{price},stock_number={stockNumber},
+            item_detail=#{itemDetail},item_sell_status=#{itemSellStatus}
+
+    </update>
+    <update id="updateItemImg" parameterType="itemImgDto">
+        UPDATE item_img
+        SET img_name=#{imgName},ori_img_name=#{oriImgName},img_url={imgUrl},
+            rep_img_yn=#{repImgYn},item_id=#{itemId}
+        WHERE item_img_id=#{itemImgId}
+    </update>
+    <select id="itemListPage" parameterType="map" resultMap="itemDto">
+        SELECT item_id,item_name,price,stock_number,item_detail,item_sell_status,reg_time,update_time
+        FROM    item
+        ORDER BY item_id
+        LIMIT   #{pageSize} OFFSET #{offset}
+    </select>
 </mapper>

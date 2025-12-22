@@ -15,4 +15,11 @@ public class ItemService {
     public List<ItemDto> itemListAll(){
         return itemMapper.itemListAll();
     }
+    public ItemForm getItemDtl(Long itemId) {
+        ItemDto itemDto = itemMapper.selectItem(itemId);
+        if (itemDto == null) throw new NullPointerException("상품이 존재하지 않음");
+        ItemForm itemForm = makeItemForm(itemDto);
+        itemForm.setItemImgList(itemMapper.selectItemImgId(itemId));
+        return itemForm;
+    }
 }

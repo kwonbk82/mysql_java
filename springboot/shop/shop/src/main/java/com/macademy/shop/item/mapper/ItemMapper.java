@@ -9,4 +9,9 @@ import java.util.List;
 public interface ItemMapper {
     int itemInsert(ItemDto itemDto);
     List<ItemDto> itemListAll();
+    ItemDto selectItem(Long itemId);
+           List<ItemImgDto> selectItemImg(Long itemId);
+    ItemImgDto selectItemImgId(Long itemImgId);
+    int updateItem(ItemDto itemDto);
+    int updateItemImg(ItemImgDto itemImgDto);
 }
