@@ -5,24 +5,26 @@
 <mapper namespace="com.macademy.shop.member.mapper.MemberMapper">
 
     <insert id="insertMember" parameterType="memberDto" useGeneratedKeys="true" keyProperty="memberId" keyColumn="member_id">
-        INSERT INTO member(id,password,name,email,address,role)
-
-        VALUES (#{id},#{password},#{name},#{email},#{address},#{role})
+        INSERT INTO member(id, password, name, email, address, role)
+        VALUES (#{id}, #{password}, #{name}, #{email}, #{address}, #{role});
     </insert>
 
-    <select id="overlapId" resultMap="memberDto" parameterType="String">
-        SELECT member_id,id,email
-        FROM member
-        WHERE id=#{id}
+    <select id="overlapId" resultType="memberDto" parameterType="String">
+        SELECT  member_id, id, email
+        FROM    member
+        WHERE   id=#{id}
     </select>
-    <select id="overlapEmail" resultMap="memberDto" parameterType="String">
-        SELECT member_id,id,email
-        FROM member
-        WHERE email=#{email}
+
+    <select id="overlapEmail" resultType="memberDto" parameterType="String">
+        SELECT  member_id, id, email
+        FROM    member
+        WHERE   email=#{email}
     </select>
-    <select id="loginMember">
-        SELECT member_id,id,password,name,email,address,role
-        FROM member
-        WHERE id=#{id} AND password=#{password}
+
+    <!-- 로그인 시 비밀번호는 시큐리티가 알아서 확인함-->
+    <select id="loginMember" parameterType="String" resultType="memberDto">
+        SELECT  member_id, id, password, name, email, address, role
+        FROM    member
+        WHERE   id=#{id}
     </select>
 </mapper>
