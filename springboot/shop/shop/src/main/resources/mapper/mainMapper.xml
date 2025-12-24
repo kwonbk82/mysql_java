@@ -12,4 +12,9 @@
             LIMIT #{pageSize} OFFSET #{offset}
 
     </select>
+    <select id="findMemberId">
+        SELECT member_id
+        FROM member
+        WHERE id=#{id}
+    </select>
 </mapper>

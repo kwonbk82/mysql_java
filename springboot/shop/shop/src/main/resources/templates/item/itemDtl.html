@@ -27,6 +27,55 @@
             $("#totalPrice").html(totalPrice + '원');
         }
 
+        async function order() {
+            var token = $("meta[name='_csrf]").attr("content");
+            var header = $("meta[name='_csrf]").attr("content");
+
+            var url = "/order";
+
+            var paramData = {
+                itemId: $("#itemId").val(),
+                count: $("#count").val()
+            };
+
+            var param = JSON.stringify(paramData);
+
+            try {
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        [header] : token
+                    },
+
+                    body: param,
+
+                    cache: 'no-cache'
+                });
+
+
+                if (response.status === 401) {
+                    alert('로그인 후 이용해주세요');
+                    location.href = '/members/login';
+                    return;
+                }
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                const result = await response.json();
+                alert("주문이 완료 되었습니다.");
+                location.href = '/';
+
+            } catch (error) {
+
+                alert(error.message);
+            }
+        }
+
     </script>
 </th:block>
 
@@ -96,7 +145,7 @@
             </div>
             <div th:if="${item.itemSellStatus == T(com.macademy.shop.item.constant.ItemSellStatus).SELL}" class="text-right">
                 <button type="button" class="btn btn-light border border-primary btn-lg">장바구니 담기</button>
-                <button type="button" class="btn btn-primary btn-lg">주문하기</button>
+                <button type="button" onclick="order()" class="btn btn-primary btn-lg">주문하기</button>
             </div>
             <div th:unless="${item.itemSellStatus == T(com.macademy.shop.item.constant.ItemSellStatus).SELL}" class="text-right">
                 <button type="button" class="btn btn-danger btn-lg">품절</button>

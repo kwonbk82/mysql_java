@@ -14,5 +14,8 @@
         <typeAlias alias="itemSearchDto" type="com.macademy.shop.item.dto.ItemSearchDto" />
         <typeAlias alias="memberDto" type="com.macademy.shop.member.dto.MemberDto" />
         <typeAlias alias="mainItemDto" type="com.macademy.shop.main.dto.MainItemDto" />
+        <typeAlias alias="orderDto" type="com.macademy.shop.order.dto.OrderDto" />
+        <typeAlias alias="orderItemDto" type="com.macademy.shop.order.dto.OrderItemDto" />
+        <typeAlias alias="orderHistDto" type="com.macademy.shop.order.dto.OrderHistDto" />
     </typeAliases>
 </configuration>

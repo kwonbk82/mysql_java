@@ -47,4 +47,7 @@ public class MemberService {
         if (findEmail != null)
             throw new IllegalStateException("이미 가입된 회원입니다.");
     }
+    public Long findMemberId(String id){
+        return Long.valueOf(memberMapper.findMemberId(id)) ;
+    };
 }

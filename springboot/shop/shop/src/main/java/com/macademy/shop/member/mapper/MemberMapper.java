@@ -14,4 +14,5 @@ public interface MemberMapper {
     MemberDto overlapEmail(String email);
 
     MemberDto loginMember(String id);
+    Long findMemberId(String id);
 }
